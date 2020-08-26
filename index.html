@@ -22,7 +22,7 @@
               <div class="text-center mb-4">
                 <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
                 <h1 class="h3 mb-3 font-weight-normal">Live TO-DO List Project</h1>
-                <p>Build with the help of <code>HTML, Bootstrap & JAVASCRIPT</code>. </p>
+                <p>Build with the help of <code>HTML , Bootstrap & JAVASCRIPT</code>. </p>
               </div>
               
         
@@ -40,7 +40,8 @@
             <textarea class="form-control" id="description" rows="3"></textarea>
         </div>
 
-        <button type="submit" id="add" class="btn btn-primary">Add To List</button>
+        <button  id="add" class="btn btn-primary">Add To List</button>
+        
     </form>
         <div id="items" class="my-4">
             <h2>Your Items</h2>
@@ -63,6 +64,7 @@
                  
                 </tbody>
               </table>
+              <button  id="add" class="btn btn-primary content-center" onclick="clearLocal()">Clear All</button>
         </div>
 
 
@@ -138,13 +140,14 @@
                
 
             }
-            function clearStorage(){
-                if (confirm("Do you areally want to clear?")){
+            function clearLocal(){
+                if (confirm("Do you really want to clear?")){
                 console.log('Clearing the storage')
                 localStorage.clear();
                 update()
                 }
             }
+        
             
             
         </script>
