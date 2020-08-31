@@ -11,21 +11,21 @@
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <title>What To do Today!</title>
-    <script src="praveen.js"></script>
+
 </head>
 
 <body>
     <div class="container">
 
         <div class="container">
-            
+
               <div class="text-center mb-4">
                 <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
                 <h1 class="h3 mb-3 font-weight-normal">Live TO-DO List Project</h1>
-                <p>Build with the help of <code>HTML, Bootstrap & JAVASCRIPT</code>. </p>
+                <p>Build with the help of <code>HTML , Bootstrap & JAVASCRIPT</code>. </p>
               </div>
-              
-        
+
+
           </div>
          <form>
 
@@ -40,8 +40,7 @@
             <textarea class="form-control" id="description" rows="3"></textarea>
         </div>
 
-        <button  id="add" class="btn btn-primary">Add To List</button>
-        
+        <button type="submit" id="add" class="btn btn-primary">Add To List</button>
     </form>
         <div id="items" class="my-4">
             <h2>Your Items</h2>
@@ -61,10 +60,9 @@
                     <td>You need coffee as you are a coder</td> 
                     <td ><button class="btn btn-sm " >Delete</button></td> 
                   </tr>
-                 
+
                 </tbody>
               </table>
-              <button  id="add" class="btn btn-primary content-center" onclick="clearLocal()">Clear All</button>
         </div>
 
 
@@ -83,7 +81,74 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-        
+        <script>
+            function getAndUpdate(){
+                console.log("Updating List...");
+                tit = document.getElementById('title').value;
+                desc = document.getElementById('description').value;
+                if (localStorage.getItem('itemsJson')==null){
+                    itemJsonArray = [];
+                    itemJsonArray.push([tit, desc]);
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                }
+                else{
+                    itemJsonArrayStr = localStorage.getItem('itemsJson')
+                    itemJsonArray = JSON.parse(itemJsonArrayStr);
+                    itemJsonArray.push([tit, desc]);
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                }
+                update();
+            }
+
+            function update(){
+                if (localStorage.getItem('itemsJson')==null){
+                    itemJsonArray = []; 
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                } 
+                else{
+                    itemJsonArrayStr = localStorage.getItem('itemsJson')
+                    itemJsonArray = JSON.parse(itemJsonArrayStr); 
+                }
+                // Populate the table
+                let tableBody = document.getElementById("tableBody");
+                let str = "";
+                itemJsonArray.forEach((element, index) => {
+                    str += `
+                    <tr>
+                    <th scope="row">${index + 1}</th>
+                    <td>${element[0]}</td>
+                    <td>${element[1]}</td> 
+                    <td><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
+                    </tr>`; 
+                });
+                tableBody.innerHTML = str;
+            }
+            add = document.getElementById("add");
+            add.addEventListener("click", getAndUpdate);
+            update();
+            document.getElementById("title").reset();
+            function deleted(itemIndex){
+                console.log("Delete", itemIndex);
+                itemJsonArrayStr = localStorage.getItem('itemsJson')
+                itemJsonArray = JSON.parse(itemJsonArrayStr);
+                // Delete itemIndex element from the array
+                itemJsonArray.splice(itemIndex, 1);
+                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray));
+                update();
+
+
+            }
+            function clearStorage(){
+                if (confirm("Do you areally want to clear?")){
+                console.log('Clearing the storage')
+                localStorage.clear();
+                update()
+                }
+            }
+
+
+        </script>
+
 
 
 
@@ -91,4 +156,4 @@
 
 </body>
 
-</html>
+</html
